@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = "Grimwell Studio";
+const description = "Independent studio publishing the Ævyndal RPG campaign setting and producing live immersive experiences.";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={title} description={description}>
+  <h1>Grimwell Studio</h1>
+  <p class="muted">
+    Independent studio publishing Ævyndal and producing live immersive experiences.
+  </p>
+
+  <div class="grid">
+    <a class="card" href="https://aevyndal.com" rel="noopener">
+      <h2>Ævyndal</h2>
+      <p>GM-first setting tools, playable locations, and modular world content.</p>
+    </a>
+
+    <a class="card" href="/contact/">
+      <h2>Contact</h2>
+      <p>Collaboration, press, and production inquiries.</p>
+    </a>
+  </div>
+</BaseLayout>
