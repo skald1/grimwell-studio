@@ -1,25 +1,129 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ProductionPanel from "../components/ProductionPanel.astro";
+import Newsletter from "../components/Newsletter.astro";
+import "../styles/global.css";
 
-const title = "Grimwell Studio";
-const description = "Independent studio publishing the Ævyndal RPG campaign setting and producing live immersive experiences.";
+const upcomingCards = [
+  {
+    title: "The Returned",
+    image: "/images/TheReturnedPoster.jpg",
+  },
+];
+
+const developingCards = [
+  {
+    title: "Create a Character",
+    image: "/images/Fragments.jpg",
+  },
+  {
+    title: "The Returned",
+    image: "/images/ZeroRebels.jpg",
+  },
+  {
+    title: "Stories & Fiction",
+    image: "/images/Stillness.jpg",
+  },
+  {
+    title: "For Game Masters",
+    image: "/images/UntimelyHeroes13thHour.jpg",
+  },
+];
+
+const twitchUrl = "https://twitch.tv/grimwellstudio";
 ---
 
-<BaseLayout title={title} description={description}>
-  <h1>Grimwell Studio</h1>
-  <p class="muted">
-    Independent studio publishing Ævyndal and producing live immersive experiences.
-  </p>
+<BaseLayout>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#">
+        <img src="/images/GrimwellHimselfWhite200.webp" alt="" aria-hidden="true" />
+        <span>GRIMWELL STUDIO</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#explore">Ævyndal</a>
+        <a href="#setting">Setting</a>
+        <a href="#newsletter">Newsletter</a>
+      </nav>
+    </header>
 
-  <div class="grid">
-    <a class="card" href="https://aevyndal.com" rel="noopener">
-      <h2>Ævyndal</h2>
-      <p>GM-first setting tools, playable locations, and modular world content.</p>
-    </a>
+    <div class="snap-scroll">
+      <section id="explore" class="snap-fold intro-fold" aria-labelledby="explore-title">
+        <Hero />
 
-    <a class="card" href="/contact/">
-      <h2>Contact</h2>
-      <p>Collaboration, press, and production inquiries.</p>
-    </a>
-  </div>
+        <section class="card-section" aria-label="Choose where to begin">
+          <a class="card-section__header" href={twitchUrl} rel="noopener">
+            Coming Soon to Grimwell Studio
+          </a>
+
+          <div class="card-groups">
+            <div class="card-group card-group--upcoming" aria-label="Upcoming">
+              <p class="card-group__label">Upcoming</p>
+              <div class="card-grid card-grid--single">
+                {upcomingCards.map((card) => (
+                  <a class="world-card" href={twitchUrl} rel="noopener" aria-label={card.title}>
+                    <img src={card.image} alt="" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div class="card-group card-group--developing" aria-label="Now developing">
+              <p class="card-group__label">Now developing</p>
+              <div class="card-grid card-grid--developing">
+                {developingCards.map((card) => (
+                  <a class="world-card" href={twitchUrl} rel="noopener" aria-label={card.title}>
+                    <img src={card.image} alt="" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+        <ProductionPanel
+          id="setting"
+          status="ÆVYNDAL SETTING"
+          title="A world built for stories at the table."
+          description="Ævyndal is a living multiverse spanning eight ages, shaped for campaigns, fiction, and discovery. It is designed to give players places to belong, histories to uncover, and conflicts big enough to leave marks across time."
+          format="Eight ages - GM-first setting tools - Story-driven play"
+          image="/images/production-01.svg"
+          cta="Visit Aevyndal"
+          href="https://aevyndal.com"
+        />
+
+        <ProductionPanel
+          status="IN DEVELOPMENT"
+          title="Fragments"
+          description="Five people wake in a world that seems to remember them better than they remember themselves."
+          format="Serialized science-fantasy actual play"
+          image="/images/production-02.svg"
+          reverse={true}
+          cta="Read the project note"
+        />
+
+        <ProductionPanel
+          status="COMING NEXT"
+          title="Untitled Grimwell Production"
+          description="Placeholder copy for the next announced production, release, or major studio project."
+          format="Format TBD"
+          image="/images/production-03.svg"
+          cta="See what's coming"
+        />
+
+        <ProductionPanel
+          status="EARLY DEVELOPMENT"
+          title="Project Blackglass"
+          description="A deliberately spare placeholder for an experiment, prototype, or concept you are ready to tease but not promise."
+          format="Experimental project"
+          image="/images/production-04.svg"
+          reverse={true}
+          cta="View development notes"
+        />
+
+      <Newsletter />
+    </div>
+  </main>
 </BaseLayout>

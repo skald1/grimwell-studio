@@ -1,0 +1,47 @@
+---
+interface Props {
+  title?: string;
+  body?: string;
+  href?: string;
+}
+
+const {
+  title = "ÆVYNDAL",
+  body = "A living multiverse spanning eight ages, built for stories, games, and discovery.",
+  href = "https://aevyndal.com",
+} = Astro.props;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <video
+    class="hero__image"
+    aria-hidden="true"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/images/hero-placeholder.svg"
+  >
+    <source src="/images/forest.webm" type="video/webm" />
+  </video>
+  <div class="hero__shade"></div>
+
+  <div class="hero__content">
+    <div class="hero__copy">
+      <h1 id="hero-title" class="hero__title">
+        <img
+          class="hero__logo"
+          src="/images/Aevyndal-Wordmark-v1-WhiteBlood-Textured.png"
+          alt="ÆVYNDAL"
+        />
+      </h1>
+      <p class="lede">{body}</p>
+    </div>
+
+    <a class="glass-cta" href={href}>
+      <span>Visit Now</span>
+      <span aria-hidden="true">+</span>
+    </a>
+  </div>
+</section>
