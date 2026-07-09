@@ -524,7 +524,7 @@ img {
 
   .snap-scroll {
     height: auto;
-    margin-top: 112px;
+    margin-top: 72px;
     overflow: visible;
     scroll-snap-type: none;
   }
@@ -543,14 +543,15 @@ img {
   }
 
   .hero {
-    min-height: 70vh;
+    min-height: 44vh;
   }
 
   .hero__content {
+    align-content: start;
     justify-items: start;
     width: auto;
-    min-height: 70vh;
-    padding-top: 96px;
+    min-height: 44vh;
+    padding-top: 28px;
     transform: none;
   }
 
