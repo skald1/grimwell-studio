@@ -309,12 +309,16 @@ img {
   aspect-ratio: 27 / 40;
   height: auto;
   min-height: 0;
+  padding: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: #121616;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 8px 18px rgba(0, 0, 0, 0.14);
+  color: inherit;
+  cursor: zoom-in;
+  font: inherit;
   text-decoration: none;
   transition:
     background-color 180ms ease,
@@ -339,6 +343,70 @@ img {
   background: #0b0f0f;
   object-fit: contain;
   object-position: center;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 56px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(3, 5, 5, 0.84);
+  cursor: zoom-out;
+}
+
+.lightbox__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  max-width: min(88vw, 680px);
+  max-height: 88vh;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #080b0b;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.lightbox__image {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 88vh;
+  object-fit: contain;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(9, 11, 11, 0.72);
+  color: #f1ece1;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus-visible {
+  border-color: rgba(148, 204, 208, 0.36);
+  filter: drop-shadow(0 0 14px rgba(58, 111, 119, 0.24));
 }
 
 .production-panel h3 {

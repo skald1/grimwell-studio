@@ -62,9 +62,16 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
               <p class="card-group__label">Upcoming</p>
               <div class="card-grid card-grid--single">
                 {upcomingCards.map((card) => (
-                  <a class="world-card" href={twitchUrl} rel="noopener" aria-label={card.title}>
+                  <button
+                    type="button"
+                    class="world-card"
+                    aria-label={`Open ${card.title} poster`}
+                    data-lightbox-trigger
+                    data-lightbox-image={card.image}
+                    data-lightbox-title={card.title}
+                  >
                     <img src={card.image} alt="" aria-hidden="true" />
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -73,9 +80,16 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
               <p class="card-group__label">Now developing</p>
               <div class="card-grid card-grid--developing">
                 {developingCards.map((card) => (
-                  <a class="world-card" href={twitchUrl} rel="noopener" aria-label={card.title}>
+                  <button
+                    type="button"
+                    class="world-card"
+                    aria-label={`Open ${card.title} poster`}
+                    data-lightbox-trigger
+                    data-lightbox-image={card.image}
+                    data-lightbox-title={card.title}
+                  >
                     <img src={card.image} alt="" aria-hidden="true" />
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -125,5 +139,51 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
 
       <Newsletter />
     </div>
+
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Poster preview" hidden>
+      <button class="lightbox__backdrop" type="button" aria-label="Close poster preview"></button>
+      <div class="lightbox__content">
+        <button class="lightbox__close" type="button" aria-label="Close poster preview">X</button>
+        <img class="lightbox__image" src="" alt="" />
+      </div>
+    </div>
   </main>
 </BaseLayout>
+
+<script>
+  const lightbox = document.querySelector(".lightbox");
+  const lightboxImage = document.querySelector(".lightbox__image");
+  const lightboxCloseControls = document.querySelectorAll(".lightbox__close, .lightbox__backdrop");
+  const lightboxTriggers = document.querySelectorAll("[data-lightbox-trigger]");
+
+  const closeLightbox = () => {
+    if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) return;
+
+    lightbox.hidden = true;
+    lightboxImage.src = "";
+    lightboxImage.alt = "";
+  };
+
+  lightboxTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      if (!(trigger instanceof HTMLElement)) return;
+      if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) return;
+      if (!trigger.dataset.lightboxImage) return;
+
+      event.preventDefault();
+      lightboxImage.src = trigger.dataset.lightboxImage;
+      lightboxImage.alt = trigger.dataset.lightboxTitle || "Poster preview";
+      lightbox.hidden = false;
+    });
+  });
+
+  lightboxCloseControls.forEach((control) => {
+    control.addEventListener("click", closeLightbox);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
+</script>
