@@ -1,4 +1,8 @@
-<section id="newsletter" class="snap-fold newsletter" aria-labelledby="newsletter-title">
+---
+const copyrightYear = new Date().getFullYear();
+---
+
+<section id="newsletter" class="snap-fold newsletter newsletter-page" aria-labelledby="newsletter-title">
   <div class="newsletter__inner">
     <p class="eyebrow">BUTTONDOWN NEWSLETTER</p>
 
@@ -34,4 +38,8 @@
       </button>
     </form>
   </div>
+
+  <footer class="site-footer">
+    <p>&copy; {copyrightYear} Grimwell Studio. All rights reserved.</p>
+  </footer>
 </section>
