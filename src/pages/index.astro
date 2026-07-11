@@ -1,14 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import ProductionPanel from "../components/ProductionPanel.astro";
 import Newsletter from "../components/Newsletter.astro";
+import TheReturnedTeaser from "../components/TheReturnedTeaser.astro";
+import UntimelyHeroesTeaser from "../components/UntimelyHeroesTeaser.astro";
 import "../styles/global.css";
 
 const upcomingCards = [
   {
+    title: "Untimely Heroes: The Thirteenth Hour",
+    image: "/images/UntimelyHeroes13thHour.jpg",
+    href: "#untimely-heroes",
+  },
+  {
     title: "The Returned",
     image: "/images/TheReturnedPoster.jpg",
+    href: "#the-returned",
   },
 ];
 
@@ -25,10 +32,6 @@ const developingCards = [
     title: "Stories & Fiction",
     image: "/images/Stillness.jpg",
   },
-  {
-    title: "For Game Masters",
-    image: "/images/UntimelyHeroes13thHour.jpg",
-  },
 ];
 
 const twitchUrl = "https://twitch.tv/grimwellstudio";
@@ -42,6 +45,9 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
         <span>GRIMWELL STUDIO</span>
       </a>
       <nav aria-label="Primary">
+        <a href="#explore">Home</a>
+        <a href="#untimely-heroes">Untimely Heroes</a>
+        <a href="#the-returned">The Returned</a>
         <a href="#newsletter">Newsletter</a>
       </nav>
     </header>
@@ -56,20 +62,17 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
           </a>
 
           <div class="card-groups">
-            <div class="card-group card-group--upcoming" aria-label="Upcoming">
-              <p class="card-group__label">Upcoming</p>
-              <div class="card-grid card-grid--single">
+            <div class="card-group card-group--upcoming" aria-label="In Production">
+              <p class="card-group__label">In Production</p>
+              <div class="card-grid card-grid--upcoming">
                 {upcomingCards.map((card) => (
-                  <button
-                    type="button"
+                  <a
+                    href={card.href}
                     class="world-card"
-                    aria-label={`Open ${card.title} poster`}
-                    data-lightbox-trigger
-                    data-lightbox-image={card.image}
-                    data-lightbox-title={card.title}
+                    aria-label={`Go to ${card.title}`}
                   >
                     <img src={card.image} alt="" aria-hidden="true" />
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -95,45 +98,9 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
         </section>
       </section>
 
-        <ProductionPanel
-          id="setting"
-          status="ÆVYNDAL SETTING"
-          title="A world built for stories at the table."
-          description="Ævyndal is a living multiverse spanning eight ages, shaped for campaigns, fiction, and discovery. It is designed to give players places to belong, histories to uncover, and conflicts big enough to leave marks across time."
-          format="Eight ages - GM-first setting tools - Story-driven play"
-          image="/images/production-01.svg"
-          cta="Visit Aevyndal"
-          href="https://aevyndal.com"
-        />
+        <UntimelyHeroesTeaser />
 
-        <ProductionPanel
-          status="IN DEVELOPMENT"
-          title="Fragments"
-          description="Five people wake in a world that seems to remember them better than they remember themselves."
-          format="Serialized science-fantasy actual play"
-          image="/images/production-02.svg"
-          reverse={true}
-          cta="Read the project note"
-        />
-
-        <ProductionPanel
-          status="COMING NEXT"
-          title="Untitled Grimwell Production"
-          description="Placeholder copy for the next announced production, release, or major studio project."
-          format="Format TBD"
-          image="/images/production-03.svg"
-          cta="See what's coming"
-        />
-
-        <ProductionPanel
-          status="EARLY DEVELOPMENT"
-          title="Project Blackglass"
-          description="A deliberately spare placeholder for an experiment, prototype, or concept you are ready to tease but not promise."
-          format="Experimental project"
-          image="/images/production-04.svg"
-          reverse={true}
-          cta="View development notes"
-        />
+        <TheReturnedTeaser />
 
       <Newsletter />
     </div>
@@ -184,4 +151,44 @@ const twitchUrl = "https://twitch.tv/grimwellstudio";
       closeLightbox();
     }
   });
+
+  const teaserSections = document.querySelectorAll(".untimely-teaser");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (!prefersReducedMotion.matches) {
+    teaserSections.forEach((section) => {
+      if (!(section instanceof HTMLElement)) return;
+
+      let animationFrame = 0;
+
+      const resetParallax = () => {
+        section.style.setProperty("--teaser-parallax-x", "0px");
+        section.style.setProperty("--teaser-parallax-y", "0px");
+        section.style.setProperty("--teaser-light-x", "50%");
+        section.style.setProperty("--teaser-light-y", "50%");
+      };
+
+      section.addEventListener("pointermove", (event) => {
+        if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+        }
+
+        animationFrame = window.requestAnimationFrame(() => {
+          const bounds = section.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          const lightX = ((event.clientX - bounds.left) / bounds.width) * 100;
+          const lightY = ((event.clientY - bounds.top) / bounds.height) * 100;
+
+          section.style.setProperty("--teaser-parallax-x", `${x * 8}px`);
+          section.style.setProperty("--teaser-parallax-y", `${y * 6}px`);
+          section.style.setProperty("--teaser-light-x", `${lightX}%`);
+          section.style.setProperty("--teaser-light-y", `${lightY}%`);
+        });
+      });
+
+      section.addEventListener("pointerleave", resetParallax);
+      section.addEventListener("blur", resetParallax, true);
+    });
+  }
 </script>
