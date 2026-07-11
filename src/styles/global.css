@@ -841,7 +841,7 @@ img {
 
   .snap-scroll {
     height: auto;
-    margin-top: 92px;
+    margin-top: 138px;
     overflow: visible;
     scroll-snap-type: none;
   }
@@ -868,7 +868,7 @@ img {
     justify-items: start;
     width: auto;
     min-height: 57vh;
-    padding-top: 62px;
+    padding-top: 24px;
     transform: none;
   }
 
