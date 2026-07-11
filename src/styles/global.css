@@ -976,6 +976,7 @@ img {
     align-content: start;
     gap: 16px;
     max-height: none;
+    min-width: 0;
     padding: 0;
   }
 
