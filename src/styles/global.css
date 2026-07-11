@@ -957,36 +957,41 @@ img {
 
 @media (max-width: 760px) {
   .untimely-teaser__inner {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    grid-template-columns: clamp(86px, 28vw, 118px) minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
     width: min(calc(100% - 40px), 620px);
     padding-top: 96px;
     padding-bottom: 64px;
   }
 
   .untimely-teaser__poster {
-    width: min(72vw, 330px);
+    width: 100%;
     height: auto;
   }
 
   .untimely-teaser__copy {
+    align-content: start;
+    gap: 16px;
     max-height: none;
+    padding: 0;
   }
 
   .untimely-teaser h2 {
-    font-size: clamp(2.6rem, 12vw, 4.5rem);
+    font-size: clamp(1.85rem, 8vw, 2.8rem);
+    line-height: 0.92;
   }
 
   .untimely-teaser__story {
-    font-size: 0.96rem;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    line-height: 1.48;
   }
 
   .untimely-teaser__final {
-    font-size: 1.42em;
+    font-size: 1.24em;
   }
 
   .untimely-teaser__last-line {
-    font-size: 1.8em;
+    font-size: 1.45em;
   }
 }
